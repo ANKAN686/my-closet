@@ -14,8 +14,8 @@ import { n8ao } from './N8AO.js'
 const params = {
   debug: false,
   paused: false,
-  cushionSize: 0.3,
-  cushionSubdivisions: 8,
+  cushionSize: 0.5,
+  cushionSubdivisions: 15,
   numSubsteps: 25,
   gravity: 0,
   pressure: 32,
@@ -29,7 +29,7 @@ const params = {
   collisionFriction: 0.3,
   collisionDamping: 0,
   groundFriction: 0.5,
-  attractorStrength: 6,
+  attractorStrength: 5,
   attractorPosition: [0, 0, 0],
   attractorRadius: 0.5,
   attractorRadiusMax: 2,
@@ -187,7 +187,7 @@ fillLightHelper.visible = params.debug
 rimLightHelper.visible = params.debug
 scene.add(keyLightHelper, fillLightHelper, rimLightHelper)
 
-// ─── Coins ───────────────────────────────────────────────────────────────────
+// ─── Balloons ────────────────────────────────────────────────────────────────
 
 const coinMaterials = [
   { color: 0xd4af37, sheen: 0xf7e7a0 }, // gold
@@ -508,7 +508,7 @@ function rebuildClothBody() {
 }
 
 const simFolder = gui.addFolder('Simulation')
-simFolder.add(params, 'cushionSize', 0.08, 1, 0.01).name('Coin Size').onFinishChange(rebuildClothBody)
+simFolder.add(params, 'cushionSize', 0.08, 1, 0.01).name('Balloon Size').onFinishChange(rebuildClothBody)
 simFolder.add(params, 'cushionSubdivisions', 4, 30, 1).name('Subdivisions').onFinishChange(rebuildClothBody)
 simFolder
   .add(params, 'gravity', -20, 0, 0.1)
