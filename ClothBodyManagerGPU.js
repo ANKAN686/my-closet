@@ -1150,10 +1150,10 @@ export class ClothBodyManagerGPU {
 
     // Shared material — 1 pipeline for all bodies
     const material = new THREE.MeshPhysicalNodeMaterial({
-      roughness: 0.6,
-      metalness: 0,
-      sheen: 1.0,
-      sheenRoughness: 0.5,
+      roughness: this.roughnessBase,
+      metalness: this.metalness,
+      sheen: this.sheen,
+      sheenRoughness: this.sheenRoughness,
     })
 
     material.positionNode = Fn(() => {
@@ -1183,6 +1183,7 @@ export class ClothBodyManagerGPU {
       material.roughnessNode = mix(this.#roughnessBaseU, texRoughness, this.#textureIntensityU)
     } else {
       material.colorNode = colorsBuffer.element(instanceIndex)
+      material.roughnessNode = this.#roughnessBaseU
     }
     material.sheenColorNode = sheenColorsBuffer.element(instanceIndex)
 

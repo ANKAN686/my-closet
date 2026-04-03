@@ -5,7 +5,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js'
 import GUI from 'lil-gui'
 import Stats from 'stats-gl'
-import { Cushion } from './Cushion.js'
+import { Coin } from './Coin.js'
 import { ClothBodyManagerGPU } from './ClothBodyManagerGPU.js'
 import { n8ao } from './N8AO.js'
 
@@ -14,18 +14,18 @@ import { n8ao } from './N8AO.js'
 const params = {
   debug: false,
   paused: false,
-  cushionSize: 1,
-  cushionSubdivisions: 20,
+  cushionSize: 0.3,
+  cushionSubdivisions: 8,
   numSubsteps: 25,
   gravity: 0,
-  pressure: 40,
+  pressure: 32,
   pressureRampTime: 4,
   pressureStiffness: 1,
   timescale: 1,
   damping: 0.002,
   stretchingCompliance: 0,
   bendingCompliance: 0.5,
-  collisionRadius: 0.04,
+  collisionRadius: 0.022,
   collisionFriction: 0.3,
   collisionDamping: 0,
   groundFriction: 0.5,
@@ -35,7 +35,7 @@ const params = {
   attractorRadiusMax: 2,
   wanderStrength: 0.5,
   wanderSpeed: 0.3,
-  wrinklesEnabled: true,
+  wrinklesEnabled: false,
   wrinkleFrequency: 45,
   wrinkleStrength: 0.8,
   wrinkleSmoothingTime: 0.03,
@@ -49,10 +49,10 @@ const params = {
   textureScale: 1,
   textureIntensity: 1,
   fabricNormalStrength: 1,
-  roughnessBase: 1,
-  sheen: 1.0,
-  sheenRoughness: 0.5,
-  metalness: 0,
+  roughnessBase: 0.22,
+  sheen: 0.15,
+  sheenRoughness: 0.2,
+  metalness: 0.92,
   aoEnabled: true,
   aoSamples: 16,
   denoiseSamples: 6,
@@ -187,35 +187,34 @@ fillLightHelper.visible = params.debug
 rimLightHelper.visible = params.debug
 scene.add(keyLightHelper, fillLightHelper, rimLightHelper)
 
-// ─── Cushions ────────────────────────────────────────────────────────────────
+// ─── Coins ───────────────────────────────────────────────────────────────────
 
-const cushionColors = [
-  { color: 0xc4956a, sheen: 0xe8b888 }, // warm sand
-  { color: 0xa85a3a, sheen: 0xd4845a }, // terracotta
-  { color: 0x6b5e54, sheen: 0x9a8d82 }, // taupe
-  { color: 0xd4c4b0, sheen: 0xf0e6d8 }, // cream
-  { color: 0x8b4513, sheen: 0xc47030 }, // saddle brown
-  { color: 0x2c2420, sheen: 0x5a4a40 }, // espresso
-  { color: 0xbc8f6f, sheen: 0xe0b898 }, // camel
+const coinMaterials = [
+  { color: 0xd4af37, sheen: 0xf7e7a0 }, // gold
+  { color: 0xc0c0c0, sheen: 0xf5f5f5 }, // silver
+  { color: 0xb87333, sheen: 0xe6b17e }, // copper
+  { color: 0xa8a8a8, sheen: 0xe8e8e8 }, // steel
+  { color: 0xd9c27a, sheen: 0xf7edbf }, // pale gold
 ]
 
-const spread = 5
-const spreadZ = 2.5
-const bodies = cushionColors.map((c, i) => {
-  const angle = (i / cushionColors.length) * Math.PI * 2
-  const rOffset = 0.5 // 0 to 1
-  const r = spread * (Math.random() * (1 - rOffset) + rOffset)
+const coinCount = 64
+const spread = 8
+const spreadZ = 3.8
+const bodies = Array.from({ length: coinCount }, (_, i) => {
+  const mat = coinMaterials[i % coinMaterials.length]
+  const angle = (i / coinCount) * Math.PI * 2 + Math.random() * 0.25
+  const r = spread * (0.2 + Math.sqrt(Math.random()) * 0.8)
   const z = spreadZ * (Math.random() * 2 - 1)
   return {
-    position: [Math.cos(angle) * r, Math.sin(angle) * r * 0.7, z],
+    position: [Math.cos(angle) * r, Math.sin(angle) * r * 0.6, z],
     rotation: [Math.random() * Math.PI * 2, Math.random() * Math.PI * 2, Math.random() * Math.PI * 2],
-    color: new THREE.Color(c.color),
-    sheenColor: new THREE.Color(c.sheen),
+    color: new THREE.Color(mat.color),
+    sheenColor: new THREE.Color(mat.sheen),
   }
 })
 
 function createClothBody() {
-  const geometry = new Cushion(params.cushionSize, params.cushionSubdivisions)
+  const geometry = new Coin(params.cushionSize, params.cushionSubdivisions)
   return new ClothBodyManagerGPU({ position: geometry.position, index: geometry.index, uv: geometry.uv, bodies }, renderer, scene, {
     numSubsteps: params.numSubsteps,
     gravity: params.gravity,
@@ -248,7 +247,11 @@ function createClothBody() {
     wrinkleTurbulence2DFrequency: params.wrinkleTurbulence2DFrequency,
     wrinkleTurbulence: params.wrinkleTurbulence,
     wrinkleTurbulenceFrequency: params.wrinkleTurbulenceFrequency,
-    fabricTextures,
+    fabricTextures: null,
+    metalness: params.metalness,
+    sheen: params.sheen,
+    sheenRoughness: params.sheenRoughness,
+    roughnessBase: params.roughnessBase,
     cushionSize: params.cushionSize,
   })
 }
@@ -505,7 +508,7 @@ function rebuildClothBody() {
 }
 
 const simFolder = gui.addFolder('Simulation')
-simFolder.add(params, 'cushionSize', 0.3, 2, 0.01).name('Cushion Size').onFinishChange(rebuildClothBody)
+simFolder.add(params, 'cushionSize', 0.08, 1, 0.01).name('Coin Size').onFinishChange(rebuildClothBody)
 simFolder.add(params, 'cushionSubdivisions', 4, 30, 1).name('Subdivisions').onFinishChange(rebuildClothBody)
 simFolder
   .add(params, 'gravity', -20, 0, 0.1)
