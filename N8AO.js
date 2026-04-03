@@ -48,7 +48,7 @@ import {
   mat3,
   PI,
 } from 'three/tsl'
-import bluenoiseData from 'n8ao/src/BlueNoise.js'
+import bluenoiseData from './BlueNoise.js'
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 

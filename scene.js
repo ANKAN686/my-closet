@@ -5,7 +5,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js'
 import GUI from 'lil-gui'
 import Stats from 'stats-gl'
-import { Coin } from './Coin.js'
+import { Cushion } from './Cushion.js'
 import { ClothBodyManagerGPU } from './ClothBodyManagerGPU.js'
 import { n8ao } from './N8AO.js'
 
