@@ -62,7 +62,8 @@ psql "$DATABASE_URL" -f backend/schemas/002_seed_dummy.sql
 
 ## UI Pages
 
-- `/` dashboard
+- `/index.html` home
+- `/dashboard.html` dashboard
 - `/items.html` items
 - `/outfits.html` outfits
 - `/wear-logs.html` wear logs
