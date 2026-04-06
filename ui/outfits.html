@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Closet | Outfits</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <div class="page-wrap">
+    <nav class="nav">
+      <div class="logo">My Closet</div>
+      <ul class="links">
+        <li><a href="/">Dashboard</a></li>
+        <li><a href="/items.html">Items</a></li>
+        <li><a class="active" href="/outfits.html">Outfits</a></li>
+        <li><a href="/wear-logs.html">Wear Logs</a></li>
+      </ul>
+    </nav>
+
+    <section class="hero">
+      <h1>Curated <em>outfits</em></h1>
+      <p>Build outfit combinations and attach closet items to each look.</p>
+    </section>
+
+    <section class="two-col">
+      <article class="panel">
+        <h3>Create Outfit</h3>
+        <form id="outfit-form" style="margin-top: 12px;">
+          <div>
+            <label>User</label>
+            <select id="outfit-user-id" required></select>
+          </div>
+          <div>
+            <label>Name</label>
+            <input id="outfit-name" required />
+          </div>
+          <div>
+            <label>Occasion</label>
+            <input id="outfit-occasion" />
+          </div>
+          <button type="submit">Create Outfit</button>
+        </form>
+
+        <h3 style="margin-top: 20px;">Add Item to Outfit</h3>
+        <form id="outfit-item-form" style="margin-top: 12px;">
+          <div>
+            <label>Outfit</label>
+            <select id="target-outfit" required></select>
+          </div>
+          <div>
+            <label>Item</label>
+            <select id="target-item" required></select>
+          </div>
+          <button type="submit">Attach Item</button>
+        </form>
+      </article>
+
+      <article class="panel">
+        <h3>Outfits</h3>
+        <ul class="list" id="outfits-list" style="margin-top: 12px;"></ul>
+      </article>
+    </section>
+  </div>
+
+  <script type="module" src="/scripts/outfits.js"></script>
+</body>
+</html>

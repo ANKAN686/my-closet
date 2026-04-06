@@ -1,245 +1,45 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Remix: Splash Page Cloth</title>
-  <style>
-    * { margin: 0; padding: 0; outline: none !important; box-sizing: border-box; }
-    canvas { display: block; outline: none !important; }
-  </style>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    :root {
-      --bg-warm: #f4d9c8;
-      --text-dark: #2c2420;
-      --text-mid: #6b5e54;
-      --text-light: #9a8d82;
-      --accent: #c4956a;
-      --accent-dark: #a87a52;
-      --white: #ffffff;
-    }
-
-    body {
-      background: var(--bg-warm);
-      color: var(--text-dark);
-      font-family: 'Inter', sans-serif;
-      font-weight: 300;
-      overflow: hidden;
-      height: 100vh;
-    }
-
-    /* ── Navigation ── */
-    .nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 24px 48px;
-    }
-
-    .nav .logo {
-      font-family: 'Playfair Display', serif;
-      font-size: 22px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--text-dark);
-    }
-
-    .nav .links {
-      display: flex;
-      gap: 36px;
-      list-style: none;
-    }
-
-    .nav .links a {
-      font-size: 12px;
-      font-weight: 400;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--text-mid);
-      text-decoration: none;
-      transition: color 0.3s ease;
-    }
-
-    .nav .links a:hover {
-      color: var(--accent-dark);
-    }
-
-    /* ── Hero ── */
-    .hero {
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      position: relative;
-      padding: 0 32px;
-    }
-
-    .hero .overline {
-      font-size: 11px;
-      font-weight: 400;
-      letter-spacing: 0.4em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 32px;
-    }
-
-    .hero h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(42px, 7vw, 96px);
-      font-weight: 400;
-      line-height: 1.1;
-      color: var(--text-dark);
-      margin-bottom: 32px;
-    }
-
-    .hero h1 .invert {
-      color: var(--white);
-      mix-blend-mode: difference;
-    }
-
-    .hero h1 em {
-      font-style: italic;
-      color: var(--accent-dark);
-    }
-
-    .hero .tagline {
-      font-size: clamp(15px, 2vw, 18px);
-      font-weight: 300;
-      color: var(--text-light);
-      max-width: 480px;
-      line-height: 1.7;
-      margin-bottom: 48px;
-    }
-
-    .hero .cta {
-      display: inline-block;
-      padding: 18px 56px;
-      font-family: 'Inter', sans-serif;
-      font-size: 12px;
-      font-weight: 500;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--white);
-      background: var(--accent);
-      border: none;
-      cursor: pointer;
-      text-decoration: none;
-      transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-    }
-
-    .hero .cta:hover {
-      background: var(--accent-dark);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 32px rgba(196, 149, 106, 0.3);
-    }
-
-    /* ── Bottom corners ── */
-    .bottom-left, .bottom-right {
-      position: fixed;
-      bottom: 36px;
-      z-index: 100;
-      font-size: 11px;
-      letter-spacing: 0.15em;
-      color: var(--text-light);
-    }
-
-    .bottom-left {
-      left: 48px;
-    }
-
-    .bottom-right {
-      right: 48px;
-      text-align: right;
-    }
-
-    .bottom-left .location {
-      text-transform: uppercase;
-      margin-bottom: 4px;
-    }
-
-    .bottom-left .coords {
-      font-size: 10px;
-      letter-spacing: 0.1em;
-      color: var(--accent);
-    }
-
-    .bottom-right .socials {
-      display: flex;
-      gap: 20px;
-      list-style: none;
-    }
-
-    .bottom-right .socials a {
-      color: var(--text-light);
-      text-decoration: none;
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
-      transition: color 0.3s ease;
-    }
-
-    .bottom-right .socials a:hover {
-      color: var(--accent-dark);
-    }
-
-    /* ── Responsive ── */
-    @media (max-width: 768px) {
-      .nav {
-        padding: 20px 24px;
-      }
-
-      .nav .links {
-        display: none;
-      }
-    }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Closet | Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css" />
 </head>
 <body>
-  <!-- Navigation -->
-  <nav class="nav">
-    <div class="logo">Maison</div>
-    <ul class="links">
-      <li><a href="#">Collections</a></li>
-      <li><a href="#">Craft</a></li>
-      <li><a href="#">Materials</a></li>
-      <li><a href="#">Contact</a></li>
-    </ul>
-  </nav>
+  <div class="page-wrap">
+    <nav class="nav">
+      <div class="logo">My Closet</div>
+      <ul class="links">
+        <li><a class="active" href="/">Dashboard</a></li>
+        <li><a href="/items.html">Items</a></li>
+        <li><a href="/outfits.html">Outfits</a></li>
+        <li><a href="/wear-logs.html">Wear Logs</a></li>
+      </ul>
+    </nav>
 
-  <!-- Hero -->
-  <section class="hero">
-    <p class="overline">The 2026 Collection</p>
-    <h1><span class="invert">Designed for</span><br><em>living</em></h1>
-    <p class="tagline">Sofas sculpted for the way you rest. Every curve, every cushion — considered, crafted, yours.</p>
-    <a class="cta" href="#">Explore the Collection</a>
-  </section>
+    <section class="hero">
+      <h1>Designed for <em>everyday dressing</em></h1>
+      <p>Overview of your wardrobe inventory, outfit ideas, and wear history.</p>
+    </section>
 
-  <!-- Bottom corners -->
-  <div class="bottom-left">
-    <div class="location">Milano &mdash; London &mdash; New York</div>
-    <div class="coords">45.4642&deg; N, 9.1900&deg; E</div>
+    <section class="grid cards" id="stats"></section>
+
+    <section class="two-col" style="margin-top: 16px;">
+      <article class="panel">
+        <h3>Recent Items</h3>
+        <ul class="list" id="recent-items" style="margin-top: 12px;"></ul>
+      </article>
+      <article class="panel">
+        <h3>Recent Wear Logs</h3>
+        <ul class="list" id="recent-logs" style="margin-top: 12px;"></ul>
+      </article>
+    </section>
   </div>
 
-  <div class="bottom-right">
-    <ul class="socials">
-      <li><a href="#">Instagram</a></li>
-      <li><a href="#">Pinterest</a></li>
-      <li><a href="#">Journal</a></li>
-    </ul>
-  </div>
+  <script type="module" src="/scripts/dashboard.js"></script>
 </body>
 </html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Closet | Items</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <div class="page-wrap">
+    <nav class="nav">
+      <div class="logo">My Closet</div>
+      <ul class="links">
+        <li><a href="/">Dashboard</a></li>
+        <li><a class="active" href="/items.html">Items</a></li>
+        <li><a href="/outfits.html">Outfits</a></li>
+        <li><a href="/wear-logs.html">Wear Logs</a></li>
+      </ul>
+    </nav>
+
+    <section class="hero">
+      <h1>Closet <em>items</em></h1>
+      <p>Create and browse clothing items stored in your wardrobe.</p>
+    </section>
+
+    <section class="two-col">
+      <article class="panel">
+        <h3>Add Item</h3>
+        <form id="item-form" style="margin-top: 12px;">
+          <div>
+            <label>User</label>
+            <select id="user-id" required></select>
+          </div>
+          <div>
+            <label>Category</label>
+            <select id="category-id"></select>
+          </div>
+          <div>
+            <label>Name</label>
+            <input id="name" required />
+          </div>
+          <div>
+            <label>Brand</label>
+            <input id="brand" />
+          </div>
+          <div>
+            <label>Color</label>
+            <input id="color" />
+          </div>
+          <button type="submit">Create Item</button>
+        </form>
+      </article>
+
+      <article class="panel">
+        <h3>Items</h3>
+        <div style="overflow:auto; margin-top: 12px;">
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Brand</th>
+                <th>Color</th>
+              </tr>
+            </thead>
+            <tbody id="items-body"></tbody>
+          </table>
+        </div>
+      </article>
+    </section>
+  </div>
+
+  <script type="module" src="/scripts/items.js"></script>
+</body>
+</html>
